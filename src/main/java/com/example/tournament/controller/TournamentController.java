@@ -52,6 +52,11 @@ public class TournamentController {
     @PostMapping("/{tournamentId}/test-passcode")
     public ServiceResponse testPasscode(@PathVariable Long tournamentId, @RequestBody PasscodeDto passcodeDto) {
         Tournament tournament = tournamentService.findById(tournamentId);
+        if (passcodeDto == null && tournament.getPasscode() == null) return ServiceResponse.createSuccessResponse(true);
+        else {
+            assert passcodeDto != null;
+            if (passcodeDto.getPasscode() == null) return ServiceResponse.createSuccessResponse(true);
+        }
         if (passcodeDto.getPasscode().equals(tournament.getPasscode())) {
             return ServiceResponse.createSuccessResponse(true);
         } else return ServiceResponse.builder()
