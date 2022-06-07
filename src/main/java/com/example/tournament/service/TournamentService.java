@@ -11,6 +11,8 @@ import com.example.tournament.util.TournamentCalendar;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -37,6 +39,7 @@ public class TournamentService {
             r.setResult(Result.NULL);
         } );
         tournament.setRounds(rounds);
+        tournament.setCreateDate(LocalDateTime.now());
         return tournamentRepository.save(tournament);
     }
 

@@ -2,6 +2,7 @@ package com.example.tournament.controller;
 
 import com.example.tournament.model.entity.Round;
 import com.example.tournament.model.entity.Tournament;
+import com.example.tournament.model.enums.Result;
 import com.example.tournament.model.request.CreateTournamentDto;
 import com.example.tournament.model.request.PasscodeDto;
 import com.example.tournament.model.response.serviceResponse.Errors;
@@ -70,4 +71,27 @@ public class TournamentController {
                 .build();
     }
 
+    @GetMapping("/{tournamentId}/test-finish")
+    public ServiceResponse testFinish(@PathVariable Long tournamentId) {
+        Tournament tournament = tournamentService.findById(tournamentId);
+        for (Round r:
+             tournament.getRounds()) {
+            if (r.getResult() == null || r.getResult() == Result.NULL) return ServiceResponse.builder()
+                    .successful(false)
+                    .payload(false)
+                    .errors(Errors.builder()
+                            .message("tournament is not finished yet")
+                            .build())
+                    .warnings(null)
+                    .build();
+        }
+        return ServiceResponse.builder()
+                .successful(true)
+                .payload(true)
+                .errors(Errors.builder()
+                        .message("tournament is finished")
+                        .build())
+                .warnings(null)
+                .build();
+    }
 }
