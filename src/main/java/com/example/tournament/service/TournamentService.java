@@ -52,4 +52,11 @@ public class TournamentService {
         return tournamentRepository.findById(tournamentId)
                 .orElseThrow(() -> new NoDataFoundException("no tournament found with id" + tournamentId));
     }
+
+    public Tournament finish(Long tournamentId, Boolean finish) {
+        Tournament tournament = tournamentRepository.findById(tournamentId)
+                .orElseThrow(() -> new NoDataFoundException("no tournament found with id" + tournamentId));
+        tournament.setIsFinished(finish);
+        return tournamentRepository.save(tournament);
+    }
 }

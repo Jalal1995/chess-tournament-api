@@ -34,4 +34,6 @@ public class Tournament {
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalDateTime createDate;
 
+    private Boolean isFinished;
+
 }
