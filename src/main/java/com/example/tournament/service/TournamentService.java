@@ -40,6 +40,7 @@ public class TournamentService {
         } );
         tournament.setRounds(rounds);
         tournament.setCreateDate(LocalDateTime.now());
+        tournament.setIsFinished(false);
         return tournamentRepository.save(tournament);
     }
 
